@@ -8,6 +8,6 @@ importers:
 
   .:
     devDependencies:
-      esbuild-plugin-browserslist:
+      rolldown-plugin-browserslist:
         specifier: ../
         version: link:..

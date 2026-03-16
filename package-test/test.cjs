@@ -1,10 +1,10 @@
 // oxlint-disable typescript/no-require-imports
 
 const {
-  esbuildPluginBrowserslist,
-  resolveToEsbuildTarget,
-} = require("esbuild-plugin-browserslist");
+  rolldownPluginBrowserslist,
+  resolveToRolldownTarget,
+} = require("rolldown-plugin-browserslist");
 const assert = require("assert");
 
-assert.strictEqual(esbuildPluginBrowserslist().name, "esbuild-plugin-browserslist");
-assert.strictEqual(resolveToEsbuildTarget(["chrome 90"])[0], "chrome90");
+assert.strictEqual(rolldownPluginBrowserslist().name, "rolldown-plugin-browserslist");
+assert.strictEqual(resolveToRolldownTarget(["chrome 90"])[0], "chrome90");
