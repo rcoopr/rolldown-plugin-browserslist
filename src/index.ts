@@ -1,32 +1,36 @@
-import type { Plugin } from "esbuild";
+import type { Plugin } from "rolldown";
 
-import { resolveToEsbuildTarget as resolveToEsbuildTarget_ } from "./resolveToEsbuildTarget.js";
+import { resolveToRolldownTarget as resolveToRolldownTarget_ } from "./resolveToRolldownTarget.js";
 import { dbg, log, PLUGIN_NAME } from "./util.js";
 
 export type Opts = { printUnknownTargets: boolean };
 
-export const resolveToEsbuildTarget = (browserlist: string[], opts?: Opts): string[] => {
+export const resolveToRolldownTarget = (browserlist: string[], opts?: Opts): string[] => {
   const printUnknownTargets = opts?.printUnknownTargets ?? true;
 
-  return resolveToEsbuildTarget_(browserlist, printUnknownTargets ? log : dbg).map(
+  return resolveToRolldownTarget_(browserlist, printUnknownTargets ? log : dbg).map(
     ({ target, version }) => `${target}${version}`,
   );
 };
 
-export const esbuildPluginBrowserslist = (browserlist: string[], opts?: Opts): Plugin => ({
+export const rolldownPluginBrowserslist = (browserlist: string[], opts?: Opts): Plugin => ({
   name: PLUGIN_NAME,
-  setup(build) {
-    const esbuildOptions = build.initialOptions;
-
-    if (esbuildOptions.target !== undefined) {
-      dbg("Got esbuildOptions.target=%s, expected=<falsey>", esbuildOptions.target);
+  options(options) {
+    const existingTarget = options.transform?.target;
+    if (existingTarget !== undefined) {
+      dbg("Got transform.target=%s, expected=<falsey>", existingTarget);
       throw new Error(`${PLUGIN_NAME} cannot be used with a set target`);
     }
 
-    const resolvedTargets = resolveToEsbuildTarget(browserlist, opts);
+    const resolvedTargets = resolveToRolldownTarget(browserlist, opts);
 
     dbg("Resolved targets: %j", resolvedTargets);
 
-    esbuildOptions.target = resolvedTargets;
+    options.transform = {
+      ...options.transform,
+      target: resolvedTargets,
+    };
+
+    return options;
   },
 });

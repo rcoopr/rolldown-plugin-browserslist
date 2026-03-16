@@ -32,8 +32,8 @@ export enum BrowserslistKind {
   Node = "node",
 }
 
-/** https://github.com/evanw/esbuild/blob/v0.19.2/internal/compat/js_table.go#L22-L50 */
-export enum EsbuildEngine {
+/** https://rolldown.rs/reference/Interface.TransformOptions (uses esbuild-compatible target strings) */
+export enum Engine {
   Chrome = "chrome",
   Deno = "deno",
   Edge = "edge",
@@ -48,19 +48,19 @@ export enum EsbuildEngine {
   Safari = "safari",
 }
 
-export const BrowserslistEsbuildMapping: Partial<Record<BrowserslistKind, EsbuildEngine>> = {
+export const BrowserslistEngineMapping: Partial<Record<BrowserslistKind, Engine>> = {
   // exact map
-  [BrowserslistKind.Edge]: EsbuildEngine.Edge,
-  [BrowserslistKind.Firefox]: EsbuildEngine.Firefox,
-  [BrowserslistKind.Chrome]: EsbuildEngine.Chrome,
-  [BrowserslistKind.Safari]: EsbuildEngine.Safari,
-  [BrowserslistKind.iOS]: EsbuildEngine.IOS,
-  [BrowserslistKind.Node]: EsbuildEngine.Node,
-  [BrowserslistKind.IE]: EsbuildEngine.IE,
-  [BrowserslistKind.Opera]: EsbuildEngine.Opera,
+  [BrowserslistKind.Edge]: Engine.Edge,
+  [BrowserslistKind.Firefox]: Engine.Firefox,
+  [BrowserslistKind.Chrome]: Engine.Chrome,
+  [BrowserslistKind.Safari]: Engine.Safari,
+  [BrowserslistKind.iOS]: Engine.IOS,
+  [BrowserslistKind.Node]: Engine.Node,
+  [BrowserslistKind.IE]: Engine.IE,
+  [BrowserslistKind.Opera]: Engine.Opera,
   // approximate mapping
-  [BrowserslistKind.Android]: EsbuildEngine.Chrome,
-  [BrowserslistKind.AndroidChrome]: EsbuildEngine.Chrome,
-  [BrowserslistKind.AndroidFirefox]: EsbuildEngine.Firefox,
-  // the rest have no equivalent for esbuild
+  [BrowserslistKind.Android]: Engine.Chrome,
+  [BrowserslistKind.AndroidChrome]: Engine.Chrome,
+  [BrowserslistKind.AndroidFirefox]: Engine.Firefox,
+  // the rest have no equivalent
 };
