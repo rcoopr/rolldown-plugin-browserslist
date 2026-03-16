@@ -1,6 +1,6 @@
 import assert from "assert";
 
-import { esbuildPluginBrowserslist, resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
+import { rolldownPluginBrowserslist, resolveToRolldownTarget } from "rolldown-plugin-browserslist";
 
-assert.strictEqual(esbuildPluginBrowserslist().name, "esbuild-plugin-browserslist");
-assert.strictEqual(resolveToEsbuildTarget(["chrome 90"])[0], "chrome90");
+assert.strictEqual(rolldownPluginBrowserslist().name, "rolldown-plugin-browserslist");
+assert.strictEqual(resolveToRolldownTarget(["chrome 90"])[0], "chrome90");

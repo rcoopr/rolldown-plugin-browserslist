@@ -1,66 +1,57 @@
-# esbuild-plugin-browserslist
+# rolldown-plugin-browserslist
 
-![build status](https://github.com/nihalgonsalves/esbuild-plugin-browserslist/workflows/build/badge.svg)
+Configure [rolldown](https://rolldown.rs/)'s transform target based on a [browserslist](https://github.com/browserslist/browserslist) query.
 
-Configure [esbuild](https://github.com/evanw/esbuild)'s target based on a [browserslist](https://github.com/browserslist/browserslist) query
+Unlike esbuild which accepts multiple versions of the same browser, rolldown expects only the earliest version per engine. This plugin resolves a browserslist query and deduplicates the results to the minimum version per target.
 
 ## Installation
 
 ```sh
-npm install --save-dev esbuild-plugin-browserslist esbuild browserslist
+npm install --save-dev rolldown-plugin-browserslist rolldown browserslist
 ```
 
 ## Usage
 
 ```ts
-import esbuild from "esbuild";
+import { rolldown } from "rolldown";
 import browserslist from "browserslist";
-import { esbuildPluginBrowserslist, resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
+import { rolldownPluginBrowserslist, resolveToRolldownTarget } from "rolldown-plugin-browserslist";
 
-await esbuild.build({
-  entryPoints: ["./foo/bar.ts"],
-  // ... other options (except `target`) ...
+// As a plugin:
+const bundle = await rolldown({
+  input: "./foo/bar.ts",
   plugins: [
-    esbuildPluginBrowserslist(browserslist("defaults"), {
+    rolldownPluginBrowserslist(browserslist("defaults"), {
       printUnknownTargets: false,
     }),
   ],
 });
 
-// Or:
-
-const target = resolveToEsbuildTarget(browserslist("defaults"), {
+// Or standalone:
+const target = resolveToRolldownTarget(browserslist("defaults"), {
   printUnknownTargets: false,
 });
 
-await esbuild.build({
-  entryPoints: ["./foo/bar.ts"],
-  target,
+const bundle = await rolldown({
+  input: "./foo/bar.ts",
+  transform: { target },
 });
 ```
 
-<details>
-<summary>:information_source: CJS usage instructions</summary>
-
-Adjust the imports as follows:
-
-```ts
-const esbuild = require("esbuild");
-const browserslist = require("browserslist");
-const {
-  esbuildPluginBrowserslist,
-  resolveToEsbuildTarget,
-} = require("esbuild-plugin-browserslist");
-```
-
-</details>
-
 ## Caveats
 
-- Only `edge`, `firefox`, `chrome`, `safari`, `ios_saf`, and `node` have direct equivalents for esbuild targets.
+- Only `edge`, `firefox`, `chrome`, `safari`, `ios_saf`, `opera`, and `node` have direct equivalents for rolldown targets.
 - `android` and `and_chr` are mapped to the `chrome` target, and `and_ff` is mapped to the `firefox` target.
-- All other browsers are ignored (`and_qq`, `samsung`, `opera`, `op_mini`, `op_mob`, `ie`, `ie_mob`, `bb`, `baidu`, and `kaios`)
+- All other browsers are ignored (`and_qq`, `samsung`, `op_mini`, `op_mob`, `ie`, `ie_mob`, `bb`, `baidu`, and `kaios`)
 
 ## Debugging
 
-You can turn on debug logs (which will print all resolutions or failures) using `DEBUG=esbuild-plugin-browserslist`
+You can turn on debug logs (which will print all resolutions or failures) using `DEBUG=rolldown-plugin-browserslist`
+
+## Credits
+
+Based on [esbuild-plugin-browserslist](https://github.com/nihalgonsalves/esbuild-plugin-browserslist) by [Nihal Gonsalves](https://github.com/nihalgonsalves).
+
+## License
+
+MIT

@@ -1,17 +1,34 @@
 import { z } from "zod";
 
-import { BrowserslistEsbuildMapping, BrowserslistKind, type EsbuildEngine } from "./types.js";
+import { BrowserslistEngineMapping, BrowserslistKind, type Engine } from "./types.js";
 import { dbg } from "./util.js";
 
 const BrowserSchema = z.enum(BrowserslistKind);
 /** 123 or 123.456 or 123.456.789 */
 const VersionSchema = z.string().regex(/^(\d+\.\d+\.\d+|\d+\.\d+|\d+)$/);
 
-export const resolveToEsbuildTarget = (
+/**
+ * Compare two version strings numerically.
+ * Returns negative if a < b, positive if a > b, 0 if equal.
+ */
+const compareVersions = (a: string, b: string): number => {
+  const aParts = a.split(".").map(Number);
+  const bParts = b.split(".").map(Number);
+  const len = Math.max(aParts.length, bParts.length);
+
+  for (let i = 0; i < len; i++) {
+    const diff = (aParts[i] ?? 0) - (bParts[i] ?? 0);
+    if (diff !== 0) return diff;
+  }
+
+  return 0;
+};
+
+export const resolveToRolldownTarget = (
   browserlist: string[],
   logFn: (msg: string) => void,
-): { target: EsbuildEngine; version: string }[] => {
-  const targets = browserlist
+): { target: Engine; version: string }[] => {
+  const allTargets = browserlist
     .map((entry) => {
       const [rawBrowser, rawVersionOrRange] = entry.split(" ");
 
@@ -40,22 +57,31 @@ export const resolveToEsbuildTarget = (
       const { data: browser } = browserResult;
       const { data: version } = versionResult;
 
-      const esbuildTarget = BrowserslistEsbuildMapping[browser];
+      const engineTarget = BrowserslistEngineMapping[browser];
 
-      dbg("Got target for entry=%s: %s", entry, esbuildTarget);
+      dbg("Got target for entry=%s: %s", entry, engineTarget);
 
-      if (esbuildTarget === undefined) {
+      if (engineTarget === undefined) {
         logFn(`Skipping unknown target: entry=${entry}, browser=${browser}, version=${version}`);
         return undefined;
       }
 
-      return { target: esbuildTarget, version };
+      return { target: engineTarget, version };
     })
     .filter((x): x is NonNullable<typeof x> => x != null);
 
-  if (targets.length === 0) {
-    throw new Error("Could not resolve any esbuild targets");
+  if (allTargets.length === 0) {
+    throw new Error("Could not resolve any targets");
   }
 
-  return targets;
+  // Keep only the earliest (lowest) version per engine
+  const earliest = new Map<Engine, string>();
+  for (const { target, version } of allTargets) {
+    const existing = earliest.get(target);
+    if (existing === undefined || compareVersions(version, existing) < 0) {
+      earliest.set(target, version);
+    }
+  }
+
+  return [...earliest.entries()].map(([target, version]) => ({ target, version }));
 };
