@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Configure rolldown's transform target based on a browserslist query",
   "license": "MIT",
-  "author": "Nihal Gonsalves <nihal@nihalgonsalves.com>",
+  "author": "Ross Cooper <ross@liveheats.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nihalgonsalves/esbuild-plugin-browserslist.git"
+    "url": "https://github.com/rcoopr/rolldown-plugin-browserslist.git"
   },
   "files": [
     "dist"
