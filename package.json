@@ -1,6 +1,6 @@
 {
   "name": "rolldown-plugin-browserslist",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Configure rolldown's transform target based on a browserslist query",
   "license": "MIT",
   "author": "Ross Cooper <ross@liveheats.com>",

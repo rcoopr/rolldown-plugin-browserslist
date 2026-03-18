@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/rcoopr/rolldown-plugin-browserslist/compare/rolldown-plugin-browserslist-v2.0.0...rolldown-plugin-browserslist-v3.0.0) (2026-03-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Support esbuild ~0.27.0 (pre-1.0 semver breaking)
+* This drops support for Node 18, and switches to a pure ESM package. This means that you either have to use `"type": "module"` in your `package.json`, or upgrade to a Node version that supports [require(esm)](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require), i.e. >= [v20.19.0](https://nodejs.org/en/blog/release/v20.19.0#requireesm-is-now-enabled-by-default), >= [v22.12.0](https://nodejs.org/en/blog/release/v22.12.0#requireesm-is-now-enabled-by-default), or v23 and above.
+* update esbuild@~0.25.0 ([#236](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/236))
+* **deps:** bump all including esbuild 0.24.x ([#215](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/215))
+* **deps:** support esbuild 0.23 ([#198](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/198))
+* **deps:** support esbuild 0.22
+* **deps:** esbuild v0.20.x
+* **deps:** esbuild v0.20.x is a pre-1.0 minor version bump, which signifies breaking changes: https://github.com/evanw/esbuild/releases/tag/v0.20.0
+
+### Features
+
+* deduplicate engine versions to earliest found ([b9d4eb5](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/b9d4eb53e631e577f374940a08caf75bb9a23ae9))
+* **deps:** bump all including esbuild 0.24.x ([#215](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/215)) ([9431519](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/94315199038b70405780990c59cefd9d03bcb779))
+* **deps:** support esbuild 0.22 ([e51e017](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/e51e01742216ede5e2dbc6d285862bc79497c8e2))
+* **deps:** support esbuild 0.23 ([#198](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/198)) ([4264416](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/426441633e9729f1fcc4cba41e62d366cf01bafc))
+* **deps:** support esbuild v0.20.x and update deps ([#187](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/187)) ([7b33f9b](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/7b33f9be3d5b64173d237f012e01a1d7bb292c47))
+* update esbuild@~0.25.0 ([#236](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/236)) ([222d414](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/222d414f29b81e42e3c61e30d931def1a656d528))
+
+
+### Bug Fixes
+
+* **ci:** add missing corepack publish step ([1743942](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/1743942b08e2787800a480e7a916f49d257802f6))
+* **ci:** publish via trusted publishing ([8df76c9](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/8df76c9d54015dbd83dbf36cd35fd7c18408a396))
+* **deps:** bump the all group with 4 updates ([#190](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/190)) ([a5380a6](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/a5380a67936c0fc03749b13eafea215113e60cf1))
+* disable YARN_ENABLE_IMMUTABLE_INSTALLS explicitly ([03546db](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/03546dbd00e78261662a249a7b24ae8eace68e77))
+* **eslint-compat:** add main field to package.json ([#256](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/256)) ([d019d79](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/d019d7912ea96184f4a4dbe49086746acf112e98))
+* remove immutable flag on test package ([9a193e1](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/9a193e166acb17c34c5731245743a8861d03d6fa))
+* unset CI for test package install ([8a4752e](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/8a4752ebadd525d25cdab928cc3dadf47a148a62))
+* update names in package-test ([db667ba](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/db667baba69af1163780f55c7546f8cc6536792a))
+* yarn install in test package ([e92bb1c](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/e92bb1c7ee7d5be9b0343acea6d93dee9ff67638))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump the all group with 10 updates ([#163](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/163)) ([20d6167](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/20d6167782f2a1ce861fccee9d82526512d0efb2))
+* upgrade esbuild@0.27 ([#285](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/285)) ([31a9363](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/31a93632833e31c643b78529bc71b51a8618d1aa))
+
+
+### Build System
+
+* switch to esm ([#240](https://github.com/rcoopr/rolldown-plugin-browserslist/issues/240)) ([0a095a8](https://github.com/rcoopr/rolldown-plugin-browserslist/commit/0a095a86ebb00a873264ab8dc358e7e49801b07b))
+
 ## [2.0.0](https://github.com/nihalgonsalves/esbuild-plugin-browserslist/compare/esbuild-plugin-browserslist-v1.0.2...esbuild-plugin-browserslist-v2.0.0) (2025-11-11)
 
 
