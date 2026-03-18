@@ -3,22 +3,22 @@
 commit-msg:
   commands:
     commitlint:
-      run: pnpm commitlint --edit {1}
+      run: yarn commitlint --edit {1}
 
 pre-commit:
   parallel: true
   commands:
     oxfmt:
       glob: "*.{js,ts,jsx,tsx,mjs,mts,cjs,cts,json,yml,yaml,md}"
-      run: pnpm oxfmt --no-error-on-unmatched-pattern {staged_files}
+      run: yarn oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
     oxlint:
       glob: "*.{js,ts,jsx,tsx,mjs,mts,cjs,cts}"
-      run: pnpm oxlint --type-aware --fix {staged_files}
+      run: yarn oxlint --type-aware --fix {staged_files}
       stage_fixed: true
     typescript-build:
       glob: "*.{js,ts,jsx,tsx,mjs,mts,cjs,cts}"
-      run: pnpm typecheck
+      run: yarn typecheck
     test:
       glob: "src/**.{js,ts,jsx,tsx,mjs,mts,cjs,cts}"
-      run: CI=1 pnpm test
+      run: CI=1 yarn test

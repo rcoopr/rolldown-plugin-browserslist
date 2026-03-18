@@ -8,6 +8,6 @@
       "extensions": ["oxc.oxc-vscode"]
     }
   },
-  "onCreateCommand": "pnpm install",
+  "onCreateCommand": "yarn install",
   "remoteUser": "node"
 }
