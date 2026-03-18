@@ -27,7 +27,8 @@
     "lint": "oxlint --type-aware",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "prepublishOnly": "node --run build && node --run lint && node --run test -- --no-watch"
+    "prepublishOnly": "node --run build && node --run lint && node --run test -- --no-watch",
+    "prepare": "node --run build"
   },
   "dependencies": {
     "debug": "^4.4.3",
