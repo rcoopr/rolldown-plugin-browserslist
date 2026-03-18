@@ -19,7 +19,7 @@ jobs:
       - name: test built package on node@24
         working-directory: ./package-test/
         run: |
-          yarn install
+          yarn install --immutable
 
           node -v
           node test.cjs
