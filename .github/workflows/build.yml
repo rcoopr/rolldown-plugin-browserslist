@@ -10,16 +10,16 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm format:check
-      - run: pnpm typecheck
-      - run: pnpm build
-      - run: pnpm test
+          cache: yarn
+      - run: yarn install --immutable
+      - run: yarn format:check
+      - run: yarn typecheck
+      - run: yarn build
+      - run: yarn test
       - name: test built package on node@24
         working-directory: ./package-test/
         run: |
-          pnpm install --frozen-lockfile
+          yarn install --immutable
 
           node -v
           node test.cjs
@@ -27,7 +27,7 @@ jobs:
 
       # lint comes after because the package-test directory needs to be
       # installed for the type-aware linting to work
-      - run: pnpm lint
+      - run: yarn lint
 
       # Not using a matrix here since it's simpler
       # to just duplicate it and not spawn new instances
